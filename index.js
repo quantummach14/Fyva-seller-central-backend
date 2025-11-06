@@ -42,8 +42,6 @@ app.use("/health", function (req, res) {
 });
 app.use("/auth", authRouter); // Assuming testRouter handles routes for /user
 app.use("/order", orderRouter); // Assuming testRouter handles routes for /order
-app.use("/finance", financeRouter); // Assuming testRouter handles routes for /order
-app.use("/report", reportRouter); // Assuming testRouter handles routes for /order
 
 // Error handling middleware
 app.use((err, req, res, next) => {

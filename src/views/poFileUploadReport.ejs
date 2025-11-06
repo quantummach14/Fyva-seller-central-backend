@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <title>Invoice</title>
+  <style>
+    .main-div { margin-top: 50px; }
+    div { margin-top: 0px; width: 100%; }
+    .mt-16 { margin-top: -16px; }
+    .table-item p, .table-item-2 p, .total-amount-wrd {
+      border: 1px solid black;
+      text-align: center;
+      background-color: rgb(214, 213, 213);
+      font-size: 10px;
+      padding: 10px;
+    }
+    .table-item-2, .purchase-details { display: flex; }
+    .purchase-details .item {
+      border: 1px solid black;
+      padding: 10px;
+    }
+    .item p { font-size: 10px; }
+    table tr { font-size: 8px; }
+    .total-amount-div {
+      display: flex;
+      justify-content: end;
+      font-size: 10px;
+      border: 1px solid black;
+      font-weight: 500;
+    }
+    .fixed-width-item-code {
+      width: 150px;
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    .total-amount-div p { padding: 10px; }
+    .footer-div {
+      border: 1px solid black;
+      padding: 5px;
+      font-size: 10px;
+      margin-top: 50px;
+    }
+    .footer-div h5 { margin-left: 20px; }
+    .table-bordered { border: 1px solid black; }
+  </style>
+</head>
+<body>
+  <div class="container main-div" style="width: 900px">
+    <div class="table-item">
+      <p><strong>Purchase Order</strong></p>
+    </div>
+
+    <div class="purchase-details mt-16">
+      <div class="item">
+        <p>Vendor Name<br />
+        <% if (location === 'gurgaon') { %>
+          Dabur India Limited<br />
+          Khasra No 20/1, Rishi Markandeshwar Enclave<br />
+          PO Tehsil Saha, Village Landa Ambala, Haryana-133102<br />
+          GSTIN<br />PAN<br />
+          Contact No.: 9694514414
+        <% } else if (location === 'bangalore') { %>
+          Dabur India Pvt Ltd<br />
+          No. 74/2, Bydarahalli Village, NH4 Kasava Hobli<br />
+          Bangalore, Karnataka-562123<br />
+          GSTIN<br />PAN<br />
+          Contact No.: 9876543210
+        <% } %></p>
+      </div>
+
+      <div class="item">
+        <p>
+          PO No: <%= customerPoNumber %><br />
+          <!-- <% const poDate = new Date(date); %>
+          PO Date: <%= poDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) %><br />
+          PO Release Date: <%= poDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) %><br /> -->
+          PO Date: <%= new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) %><br />
+          PO Release Date: <%= new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) %><br />
+          Payment Terms: <br />
+          Expected Delivery Date: <%= null %>
+        </p>
+      </div>
+    </div>
+
+    <div class="table-item-2">
+      <div class="item"><p><strong>Billing Address</strong></p></div>
+      <div class="item"><p><strong>Shipping Address</strong></p></div>
+    </div>
+
+    <div class="purchase-details mt-16">
+      <div class="item">
+        <p>
+        <% if (location === 'bangalore') { %>
+          The TechTonic Bangalore<br />
+          1st Main Rd, Vinayaka Layout<br />
+          Chiranjeevi Layout, Hebbal Kempapura<br />
+          Bengaluru, Karnataka-560024<br />
+          India<br />
+          GSTIN:<br />PAN:<br />Contact No.: 7204186309
+        <% } else if (location === 'gurgaon') { %>
+          The TechTonic Gurgaon<br />
+          Mustakil No.117 and 118<br />
+          Village Bhondsi, Haryana-122102<br />
+          GSTIN:<br />PAN:<br />Contact No.: 8684868791
+        <% } %>
+        </p>
+      </div>
+
+      <div class="item">
+        <p>
+        <% if (location === 'bangalore') { %>
+          The TechTonic Bangalore<br />
+          1st Main Rd, Vinayaka Layout<br />
+          Chiranjeevi Layout, Hebbal Kempapura<br />
+          Bengaluru, Karnataka-560024<br />
+          India<br />
+          GSTIN:<br />PAN:<br />Contact No.: 7204186309
+        <% } else if (location === 'gurgaon') { %>
+          The TechTonic Gurgaon<br />
+          Mustakil No.117 and 118<br />
+          Village Bhondsi, Haryana-122102<br />
+          GSTIN:<br />PAN:<br />Contact No.: 8684868791
+        <% } %>
+        </p>
+      </div>
+    </div>
+
+    <table class="table table-bordered">
+      <thead class="table-secondary">
+        <tr>
+          <th rowspan="2">S. No.</th>
+          <th rowspan="2">Item Code</th>
+          <th rowspan="2">Item Name</th>
+          <th rowspan="2">HSN Code</th>
+          <th rowspan="2">Qty</th>
+          <th rowspan="2">Unit Base Cost(INR)</th>
+          <th rowspan="2">Discount</th>
+          <th rowspan="2">Taxable Value(INR)</th>
+          <th colspan="2">CGST</th>
+          <th colspan="2">SGST</th>
+          <!-- <th colspan="2">IGST</th> -->
+          <th rowspan="2">Total (INR)</th>
+        </tr>
+        <tr>
+          <th>Rate</th>
+          <th>Amt</th>
+          <th>Rate</th>
+          <th>Amt</th>
+          <!-- <th>Rate</th>
+          <th>Amt</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <% 
+          let totalTaxable = 0, totalTax = 0, totalGrand = 0;
+      
+          data.forEach((item, index) => {
+            const gstPercent = parseFloat(item.gst_percentage || 0);
+            const originalTotal = parseFloat(item.original_total_cost || 0);
+            const discountedTotal = originalTotal * 0.75;
+      
+            const gstAmount = (discountedTotal * gstPercent) / 100;
+            const taxableValue = (discountedTotal - gstPercent)
+            const halfGst = gstPercent / 2;
+            const halfGstValue = gstAmount / 2;
+           
+            totalTaxable += item.totalAmount;
+            totalTax += gstAmount;
+            const totalValue = totalTaxable+totalTax;
+            totalGrand += totalValue;
+        %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= item.sku_code %></td>
+            <td style="word-break: break-word; max-width: 450px; white-space: normal;"><%= item.sku_name %></td>
+            <td><%= item.hsn %></td>
+            <td><%= item.final_qty %></td>
+            <td><%= item.mrp %></td>
+            <td>25%</td>
+            <td><%= item.totalAmount %></td>
+            <td><%= halfGst.toFixed(2) %>%</td>
+            <td><%= item.cgst %></td>
+            <td><%= halfGst.toFixed(2) %>%</td>
+            <td><%= item.sgst %></td>
+            <!-- <td>0%</td>
+            <td>0.00</td> -->
+      
+            <!-- Final Total -->
+            <td><%= discountedTotal %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+
+    <div class="total-amount-div mt-16">
+      <p>
+        Total Amount (INR): <%= taxableTotal.toFixed(2) %><br />
+        Total Tax (INR): <%= grandTax.toFixed(2) %><br />
+        Grand Total (INR): <%= grandTotal.toFixed(2) %>
+      </p>
+    </div>
+
+    <div class="total-amount-wrd mt-16">
+        <p><strong>Amount in Words: <%= totalInWords %> Only</strong></p>
+    </div>
+  </div>
+  <div class="container footer-div" style="width: 900px">
+    <h5><b>Term & Conditions</b></h5>
+    <ol>
+      <li>
+        Please send two copies of your invoice. One hard copy and one soft
+        copy by mail.
+      </li>
+      <li>
+        Enter this order in accordance with the prices, terms, delivery
+        method, and specification listed above.
+      </li>
+      <li>
+        Please notify us immediately if you are unable to ship as specified.
+      </li>
+      <li>
+        <b>
+          Form C would be provided against this interstate purchase, so please
+          charge CST @2%.</b
+        >
+      </li>
+    </ol>
+  </div>
+</body>
+</html>
